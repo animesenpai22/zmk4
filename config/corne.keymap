@@ -288,6 +288,7 @@
     };
 
     // ===== ADVANCED SETTINGS =====
+    // Fixed build errors - should compile successfully now
 
     // Layer tap settings
     &lt {
