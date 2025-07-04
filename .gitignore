@@ -1,0 +1,21 @@
+# Build artifacts
+/build/
+*.uf2
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor Files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-*
+
+# Temporary files
+*.log
+*.tmp
+.temp/
