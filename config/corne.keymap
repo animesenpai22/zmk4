@@ -1,11 +1,7 @@
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 1500
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 15
-
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
-#include <dt-bindings/zmk/pointing.h>
 
 // Define KEYS_L and KEYS_R for hold-tap behaviors
 #define KEYS_L LT0 LT1 LT2 LT3 LT4 LT5 LM0 LM1 LM2 LM3 LM4 LM5 LB0 LB1 LB2 LB3 LB4 LB5 LH0 LH1 LH2  // left-hand keys
@@ -125,195 +121,7 @@
             hold-trigger-on-release;
         };
 
-        my_safe_hold_tap: safe_hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick-tap-ms = <0>;
-            flavor = "tap-preferred";
-            bindings = <&mo>, <&kp>;
-        };
-
         // ===== MOD MORPH BEHAVIORS =====
-
-        // Sticky shift + caps word
-        mm_shift_caps_word_l: mm_shift_caps_word_l {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&sk LSHFT>, <&caps_word>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        mm_shift_caps_word_r: mm_shift_caps_word_r {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&sk RSHFT>, <&caps_word>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        // Shifted backspace deletes
-        mm_bspc_del: bspc_del {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp BSPC>, <&kp DEL>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        // Shifted backspace deletes + layer tap
-        mm_bspc_del_layer: bspc_del_layer {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&lt 3 BSPC>, <&kp DEL>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        // Shifted space underscores + layer tap
-        mm_spc_unds_layer: mod_morph_underscore {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&lt 2 SPACE>, <&kp MINUS>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-            keep-mods = <(MOD_LSFT)>;
-        };
-
-        // Shifted grave types caret
-        mm_grave_caret: mm_grave_caret {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp GRAVE>, <&kp CARET>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        // Shifted plus types minus
-        mm_plus_minus: mm_plus_minus {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp PLUS>, <&kp MINUS>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        // Shifted comma types semicolon
-        mm_comma_semi_meh: mm_comma_semi {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&hm_r MY_MEH COMMA>, <&kp SEMICOLON>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        // Shifted dot types colon
-        mm_dot_colon: mm_dot_colon {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp DOT>, <&kp COLON>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        // Navigation shortcuts with CMD
-        mm_none_undo: mm_none_undo {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&none>, <&kp MY_UNDO>;
-            mods = <(MOD_RGUI|MOD_LGUI)>;
-        };
-
-        mm_left_word_cut: mm_left_word_cut {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp MY_LEFT_W>, <&kp MY_CUT>;
-            mods = <(MOD_RGUI|MOD_LGUI)>;
-        };
-
-        mm_up_save: mm_up_save {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp UP>, <&kp LG(S)>;
-            mods = <(MOD_LGUI)>;
-        };
-
-        mm_down_copy: mm_down_copy {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp DOWN>, <&kp MY_COPY>;
-            mods = <(MOD_LGUI)>;
-        };
-
-        mm_none_paste: mm_none_paste {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&none>, <&kp MY_PASTE>;
-            mods = <(MOD_RGUI|MOD_LGUI)>;
-        };
-
-        // Number layer shortcuts
-        mm_1_cut: mm_1_cut {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp N1>, <&kp MY_CUT>;
-            mods = <(MOD_RGUI|MOD_LGUI)>;
-        };
-
-        mm_2_copy: mm_2_copy {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp N2>, <&kp MY_COPY>;
-            mods = <(MOD_LGUI)>;
-        };
-
-        mm_5_save: mm_5_save {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&hm_l LGUI N5>, <&kp LG(S)>;
-            mods = <(MOD_LGUI)>;
-        };
-
-        // Grave escape
-        mm_grescm: grave_escape_masked {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp ESCAPE>, <&kp GRAVE>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-            keep-mods = <(MOD_RSFT)>;
-        };
-
-        // Grave escape + GUI
-        mm_grescm_gui: grave_escape_masked_gui {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&hm LGUI ESCAPE>, <&kp GRAVE>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-            keep-mods = <(MOD_LSFT)>;
-        };
-
-        // Bracket behaviors
-        mm_bracket_r: mm_bracket_r {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&am RPAR LPAR>, <&kp RPAR>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        mm_bracket_sq: mm_bracket_sq {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&am RBKT LBKT>, <&kp RBKT>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        mm_bracket_c: mm_bracket_c {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&am RBRC LBRC>, <&kp RBRC>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        mm_bracket_a: mm_bracket_a {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&am GT LT>, <&kp GT>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        // ===== OTHER BEHAVIORS =====
 
         // Auto mod (tap preferred hold-tap)
         am: auto_mod {
@@ -324,101 +132,10 @@
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
-
-        // Tap dancing shift
-        td_shift_l: td_shift_l {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <TD_TAPPING_TERM>;
-            bindings = <&kp LEFT_SHIFT>, <&caps_word>, <&kp CAPSLOCK>;
-        };
-
-        td_shift_r: td_shift_r {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <TD_TAPPING_TERM>;
-            bindings = <&kp RIGHT_SHIFT>, <&caps_word>, <&kp CAPSLOCK>;
-        };
-
-        // Double tap to clear BT
-        td_out_bt_clear: td_out_bt_clear {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <TD_TAPPING_TERM>;
-            bindings = <&out OUT_TOG>, <&bt BT_CLR>;
-        };
-
-        // Tap dancing num layer
-        td_num_layer: td_num_layer {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <250>;
-            bindings = <&lt 1 DEL>, <&tog 1>;
-        };
-
-        // Tap dancing nav layer
-        td_nav_layer_inner: td_nav_layer_inner {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <250>;
-            bindings = <&kp RET>, <&tog 3>, <&kp RET>;
-        };
-
-        td_nav_layer: td_nav_layer {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <250>;
-            quick-tap-ms = <225>;
-            bindings = <&mo>, <&td_nav_layer_inner>;
-        };
-
-        // Tap dancing sym layer
-        td_sym_layer: td_sym_layer {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <250>;
-            bindings = <&mm_spc_unds_layer>, <&tog 2>;
-        };
-
-        // Layer toggle with hold-tap
-        ltog: ltog {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <250>;
-            bindings = <&kp>, <&tog>;
-        };
-
-        // Sticky key layer tap
-        sklt: sklt {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <250>;
-            bindings = <&mo>, <&sk>;
-        };
-
-        // Email behaviors
-        ht_type_email: ht_type_email {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <300>;
-            quick-tap-ms = <200>;
-            flavor = "tap-preferred";
-            bindings = <&email>, <&kp>;
-        };
-
-        td_at_email: td_at_email {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <300>;
-            bindings = <&kp AT>, <&email>, <&anime_name>;
-        };
     };
 
     macros {
-        // Original macros
+        // Essential macros only
         email: email_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -430,89 +147,13 @@
             #binding-cells = <0>;
             bindings = <&kp LS(A) &kp N &kp I &kp M &kp E &kp COLON &kp SPACE &kp RET &kp LS(S) &kp O &kp N &kp G &kp COLON &kp SPACE>;
         };
-
-        zx: zx_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp Z &kp X &key_repeat>;
-        };
-
-        // Advanced macros from infused-kim
-        m_type_email_p: type_email_personal {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
-            bindings = <
-                &kp A &kp B &kp H &kp A &kp Y
-                &kp AT
-                &kp G &kp M &kp A &kp I &kp L
-                &kp DOT
-                &kp C &kp O &kp M
-            >;
-        };
-
-        m_type_email_w: type_email_work {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
-            bindings = <
-                &kp W &kp O &kp R &kp K
-                &kp AT
-                &kp C &kp O &kp M &kp P &kp A &kp N &kp Y
-                &kp DOT
-                &kp C &kp O &kp M
-            >;
-        };
-
-        m_type_md_code_block: m_type_md_code_block {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <
-                &kp GRAVE &kp GRAVE &kp GRAVE &kp LS(RET)
-                &kp GRAVE &kp GRAVE &kp GRAVE &kp UP
-            >;
-        };
-
-        // Quick shortcuts
-        m_select_all: select_all {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp MY_COPY>;
-        };
-
-        m_undo: undo_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp MY_UNDO>;
-        };
-
-        m_redo: redo_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp MY_REDO>;
-        };
-
-        // Window management
-        m_screenshot: screenshot {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp LG(LS(N3))>;  // macOS screenshot
-        };
-
-        m_spotlight: spotlight {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp LG(SPACE)>;  // macOS Spotlight
-        };
     };
 
     combos {
         compatible = "zmk,combos";
 
         settings_layer {
-            bindings = <&mo 4>;
+            bindings = <&mo 3>;
             key-positions = <0 1>;
             layers = <0 1 2 3>;
             timeout-ms = <50>;
@@ -603,9 +244,9 @@
         default_layer {
             bindings = <
                 &kp GRAVE     &kp Q         &kp W         &kp F         &kp P         &kp B             &kp J         &kp L         &kp U         &kp Y         &kp SEMI      &kp BACKSPACE
-                &lt 3 TAB     &bhml LGUI A  &bhml LALT R  &bhml LCTRL S &bhml LSHFT T &kp G             &kp M         &bhmr LSHFT N &bhmr RCTRL E &bhmr LALT I  &bhmr RGUI O  &kp APOS
+                &kp TAB       &bhml LGUI A  &bhml LALT R  &bhml LCTRL S &bhml LSHFT T &kp G             &kp M         &bhmr LSHFT N &bhmr RCTRL E &bhmr LALT I  &bhmr RGUI O  &kp APOS
                 &mo 2         &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH      &kp ENTER
-                                                          &mt LALT ESC  &lt 1 TAB     &my_safe_hold_tap 1 SPACE        &lt 1 ENTER   &kp LSHFT     &lt 2 DEL
+                                                          &mt LALT ESC  &lt 1 TAB     &lt 1 SPACE      &lt 1 ENTER   &kp LSHFT     &lt 2 DEL
             >;
         };
 
