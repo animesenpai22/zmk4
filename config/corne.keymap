@@ -7,189 +7,238 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
 
-// Include the zmk-helpers
-#include "zmk-helpers/helper.h"
-// Include the key labels for 42-key Corne
-#include "zmk-helpers/key-labels/42.h"
-
-// Define layers
-#define DEFAULT        0
-#define NUMBER         1
-#define SYMBOL         2
-#define NAV            3
-#define SETTINGS       4
-
 // Define KEYS_L and KEYS_R for hold-tap behaviors
 #define KEYS_L LT0 LT1 LT2 LT3 LT4 LT5 LM0 LM1 LM2 LM3 LM4 LM5 LB0 LB1 LB2 LB3 LB4 LB5 LH0 LH1 LH2  // left-hand keys
 #define KEYS_R RT0 RT1 RT2 RT3 RT4 RT5 RM0 RM1 RM2 RM3 RM4 RM5 RB0 RB1 RB2 RB3 RB4 RB5 RH0 RH1 RH2  // right-hand keys
 #define THUMBS LH0 LH1 LH2 RH0 RH1 RH2
 
-// Define behaviors using ZMK_HOLD_TAP helper
-ZMK_HOLD_TAP(bhml, 
-    tapping-term-ms = <280>,
-    quick-tap-ms = <125>,
-    flavor = "balanced",
-    bindings = <&kp>, <&kp>,
-    hold-trigger-key-positions = <KEYS_R THUMBS>,
-    global-quick-tap,
-    hold-trigger-on-release
-)
-
-ZMK_HOLD_TAP(bhmr, 
-    tapping-term-ms = <280>,
-    quick-tap-ms = <125>,
-    flavor = "balanced",
-    bindings = <&kp>, <&kp>,
-    hold-trigger-key-positions = <KEYS_L THUMBS>,
-    global-quick-tap,
-    hold-trigger-on-release
-)
-
-ZMK_HOLD_TAP(my_safe_hold_tap,
-    tapping-term-ms = <200>,
-    quick-tap-ms = <0>,
-    flavor = "tap-preferred",
-    bindings = <&mo>, <&kp>
-)
-
-// Define macros using ZMK_MACRO helper
-ZMK_MACRO(email,
-    bindings = <&kp A &kp B &kp H &kp A &kp Y &kp N5 &kp N2 &kp N4 &kp N3 &kp N1 &kp AT &kp G &kp M &kp A &kp I &kp L &kp DOT &kp C &kp O &kp M>;
-)
-
-ZMK_MACRO(anime_name,
-    bindings = <&kp LS(A) &kp N &kp I &kp M &kp E &kp COLON &kp SPACE &kp RET &kp LS(S) &kp O &kp N &kp G &kp COLON &kp SPACE>;
-)
-
-ZMK_MACRO(zx,
-    bindings = <&kp Z &kp X &key_repeat>;
-)
-
-// Define combos using ZMK_COMBO helper
-ZMK_COMBO(settings_layer, &mo 4, LT0 LT1, DEFAULT NUMBER SYMBOL NAV, 50)
-ZMK_COMBO(copy, &kp LC(C), LM3 LM2, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(paste, &kp LC(V), LM3 LM4, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(enter, &kp ENTER, LB2 LB5, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(undo, &kp LC(Z), LM1 LM2, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(redo, &kp LC(LS(Z)), LM1 LM3, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(typing, &tog 8, LH0 RH0, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(close, &kp LA(F4), LT4 LT2, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(closew, &kp LC(W), LT3 LT5, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(taskmanager, &kp LC(LS(ESCAPE)), LT0 LM0, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(del2, &kp DEL, LT4 LB3, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(cut, &kp LC(X), LM2 LM4, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(find, &kp LC(F), LT3 LB2, DEFAULT NUMBER SYMBOL NAV)
-ZMK_COMBO(all, &kp LC(A), LM0 LM1, DEFAULT NUMBER SYMBOL NAV)
-
-// Define layers using ZMK_LAYER helper
-ZMK_LAYER(default_layer, 0,
-    // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-         &kp GRAVE     &kp Q         &kp W         &kp F         &kp P         &kp B             &kp J         &kp L         &kp U         &kp Y         &kp SEMI      &kp BACKSPACE
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &lt 6 TAB     &bhml LGUI A  &bhml LALT R  &bhml LCTRL S &bhml LSHFT T &kp G             &kp M         &bhmr LSHFT N &bhmr RCTRL E &bhmr LALT I  &bhmr LGUI O  &kp APOS
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &mo 3         &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH      &kp ENTER
-    // ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯
-                                                   &mt LALT ESC  &lt 1 TAB     &my_safe_hold_tap 1 SPACE        &lt 2 ENTER   &kp LSHFT     &lt 3 DEL
-    //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
-)
-
-ZMK_LAYER(number, 1,
-    // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-         &trans        &kp EXCL      &kp AT        &kp HASH      &kp DLLR      &kp PRCNT         &kp CARET     &kp N7        &kp N8        &kp N9        &kp ASTRK     &trans
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &bhml LGUI N1 &bhml LALT N2 &bhml LCTRL N3 &bhml LSHFT N4 &kp N5           &kp N6        &bhmr LSHFT N4 &bhmr RCTRL N5 &bhmr LALT N6 &bhmr LGUI N0 &trans
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &none         &none         &none         &none         &none             &none         &kp N1        &kp N2        &kp N3        &kp PLUS      &trans
-    // ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯
-                                                   &trans        &trans        &trans            &kp ENTER     &kp N0        &kp DOT
-    //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
-)
-
-ZMK_LAYER(symbol, 2,
-    // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-         &trans        &kp GRAVE     &kp TILDE     &kp LBRC      &kp RBRC      &kp PIPE          &kp AMPS      &kp LPAR      &kp RPAR      &kp UNDER     &kp PLUS      &trans
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &bhml LGUI EXCL &bhml LALT AT &bhml LCTRL LBKT &bhml LSHFT RBKT &kp BSLH    &kp EQUAL     &bhmr LSHFT MINUS &bhmr RCTRL ASTRK &bhmr LALT FSLH &bhmr LGUI QMARK &trans
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &kp HASH      &kp DLLR      &kp LPAR      &kp RPAR      &kp CARET         &kp LT        &kp GT        &kp COLON     &kp SEMI      &kp PRCNT     &trans
-    // ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯
-                                                   &trans        &kp SPACE     &trans            &trans        &trans        &trans
-    //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
-)
-
-ZMK_LAYER(layer_6, 6,
-    // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-         &trans        &kp F12       &kp F7        &kp F8        &kp F9        &kp C_VOL_UP      &kp PLUS      &kp N7        &kp N8        &kp N9        &kp MINUS     &kp BSPC
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &bhml LGUI F11 &bhml LALT F4 &bhml LCTRL F5 &bhml LSHFT F6 &kp C_VOL_DN   &kp KP_MULTIPLY &bhmr LSHFT N4 &bhmr LCTRL N5 &bhmr LALT N6 &bhmr LGUI FSLH &kp SEMI
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &kp F10       &kp F1        &kp F2        &kp F3        &kp C_MUTE        &kp DOT       &kp N1        &kp N2        &kp N3        &kp COMMA     &kp EQUAL
-    // ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯
-                                                   &trans        &trans        &trans            &trans        &trans        &kp N0
-    //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
-)
-
-ZMK_LAYER(nav, 3,
-    // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-         &trans        &none         &email        &none         &anime_name   &none             &kp PAGE_UP   &kp HOME      &kp UP        &kp END       &kp KP_ASTERISK &trans
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHFT     &none             &kp M         &kp LEFT      &kp DOWN      &kp RIGHT     &kp PRINTSCREEN &trans
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &none         &none         &none         &none         &none             &kp PAGE_DOWN &none         &none         &none         &none         &trans
-    // ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯
-                                                   &trans        &trans        &trans            &trans        &trans        &trans
-    //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
-)
-
-ZMK_LAYER(mouse, 5,
-    // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-         &trans        &none         &none         &msc SCRL_UP  &none         &email            &msc SCRL_UP  &mkp MB1      &mmv MOVE_UP  &mkp MB2      &kp C_VOL_UP  &trans
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &none         &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_RIGHT &none          &msc SCRL_DOWN &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &kp C_VOL_DN &trans
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &none         &none         &none         &none         &anime_name       &mkp MB2      &msc SCRL_LEFT &mkp MB3     &msc SCRL_RIGHT &kp C_MUTE   &trans
-    // ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯
-                                                   &kp C_PREV    &kp C_PP      &kp C_NEXT        &mkp MB1      &trans        &trans
-    //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
-)
-
-ZMK_LAYER(settings, 4,
-    // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-         &none         &none         &bt BT_PRV    &none         &bt BT_NXT    &bootloader       &none         &none         &none         &none         &none         &bootloader
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &bt BT_CLR_ALL &none        &bt BT_SEL 3  &bt BT_SEL 4  &none         &out OUT_BLE      &none         &none         &none         &none         &none         &none
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &bt BT_CLR    &none         &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &out OUT_USB      &none         &none         &none         &none         &none         &none
-    // ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯
-                                                   &kp C_PREV    &kp C_PP      &kp C_NEXT        &none         &none         &none
-    //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
-)
-
-ZMK_LAYER(typing, 8,
-    // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-         &kp GRAVE     &kp Q         &kp W         &kp F         &kp P         &kp B             &kp J         &kp L         &kp U         &kp Y         &kp SEMI      &kp BSPC
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &kp LCTRL     &kp A         &kp R         &kp S         &kp T         &kp G             &kp M         &kp N         &kp E         &kp I         &kp O         &kp C_VOL_DN
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &kp LALT      &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH      &kp ENTER
-    // ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯
-                                                   &kp ESC       &kp TAB       &kp SPACE         &kp ENTER     &kp LSHFT     &kp DEL
-    //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
-)
-
-ZMK_LAYER(layer_7, 7,
-    // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-         &kp LC(GRAVE) &kp LC(Q)     &kp LC(W)     &kp LC(F)     &kp LC(P)     &kp LC(B)         &kp LC(J)     &kp LC(L)     &kp LC(U)     &kp LC(Y)     &kp LC(SEMI)  &kp LC(BSPC)
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &kp LC(A)     &kp LC(R)     &kp LC(S)     &kp LC(T)     &kp LC(G)         &kp LC(M)     &kp LC(N)     &kp LC(E)     &kp LC(I)     &kp LC(O)     &kp LC(SQT)
-    // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-         &kp LGUI      &kp LC(Z)     &kp LC(X)     &kp LC(C)     &kp LC(D)     &kp LC(V)         &kp LC(K)     &kp LC(H)     &kp LC(COMMA) &kp LC(DOT)   &kp LC(FSLH)  &kp LC(ENTER)
-    // ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯
-                                                   &kp LALT      &kp LSHFT     &kp LC(SPACE)     &kp LC(ENTER) &kp LSHFT     &kp LC(DEL)
-    //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
-)
-
 / {
-    // Empty root node
+    behaviors {
+        bhml: balanced_homerow_mods_left {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <125>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_R THUMBS>;
+            global-quick-tap;
+            hold-trigger-on-release;
+        };
+
+        bhmr: balanced_homerow_mods_right {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <125>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_L THUMBS>;
+            global-quick-tap;
+            hold-trigger-on-release;
+        };
+
+        my_safe_hold_tap: safe_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&kp>;
+        };
+    };
+
+    macros {
+        email: email_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp A &kp B &kp H &kp A &kp Y &kp N5 &kp N2 &kp N4 &kp N3 &kp N1 &kp AT &kp G &kp M &kp A &kp I &kp L &kp DOT &kp C &kp O &kp M>;
+        };
+
+        anime_name: anime_name_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(A) &kp N &kp I &kp M &kp E &kp COLON &kp SPACE &kp RET &kp LS(S) &kp O &kp N &kp G &kp COLON &kp SPACE>;
+        };
+
+        zx: zx_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp Z &kp X &key_repeat>;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        settings_layer {
+            bindings = <&mo 4>;
+            key-positions = <0 1>;
+            layers = <0 1 2 3>;
+            timeout-ms = <50>;
+        };
+
+        copy {
+            bindings = <&kp LC(C)>;
+            key-positions = <15 14>;
+            layers = <0 1 2 3>;
+        };
+
+        paste {
+            bindings = <&kp LC(V)>;
+            key-positions = <15 16>;
+            layers = <0 1 2 3>;
+        };
+
+        enter {
+            bindings = <&kp ENTER>;
+            key-positions = <26 29>;
+            layers = <0 1 2 3>;
+        };
+
+        undo {
+            bindings = <&kp LC(Z)>;
+            key-positions = <13 14>;
+            layers = <0 1 2 3>;
+        };
+
+        redo {
+            bindings = <&kp LC(LS(Z))>;
+            key-positions = <13 15>;
+            layers = <0 1 2 3>;
+        };
+
+        typing {
+            bindings = <&tog 8>;
+            key-positions = <36 41>;
+            layers = <0 1 2 3>;
+        };
+
+        close {
+            bindings = <&kp LA(F4)>;
+            key-positions = <4 2>;
+            layers = <0 1 2 3>;
+        };
+
+        closew {
+            bindings = <&kp LC(W)>;
+            key-positions = <3 5>;
+            layers = <0 1 2 3>;
+        };
+
+        taskmanager {
+            bindings = <&kp LC(LS(ESCAPE))>;
+            key-positions = <0 12>;
+            layers = <0 1 2 3>;
+        };
+
+        del2 {
+            bindings = <&kp DEL>;
+            key-positions = <4 27>;
+            layers = <0 1 2 3>;
+        };
+
+        cut {
+            bindings = <&kp LC(X)>;
+            key-positions = <14 16>;
+            layers = <0 1 2 3>;
+        };
+
+        find {
+            bindings = <&kp LC(F)>;
+            key-positions = <3 26>;
+            layers = <0 1 2 3>;
+        };
+
+        all {
+            bindings = <&kp LC(A)>;
+            key-positions = <12 13>;
+            layers = <0 1 2 3>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+                &kp GRAVE     &kp Q         &kp W         &kp F         &kp P         &kp B             &kp J         &kp L         &kp U         &kp Y         &kp SEMI      &kp BACKSPACE
+                &lt 6 TAB     &bhml LGUI A  &bhml LALT R  &bhml LCTRL S &bhml LSHFT T &kp G             &kp M         &bhmr LSHFT N &bhmr RCTRL E &bhmr LALT I  &bhmr LGUI O  &kp APOS
+                &mo 3         &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH      &kp ENTER
+                                                          &mt LALT ESC  &lt 1 TAB     &my_safe_hold_tap 1 SPACE        &lt 2 ENTER   &kp LSHFT     &lt 3 DEL
+            >;
+        };
+
+        number {
+            bindings = <
+                &trans        &kp EXCL      &kp AT        &kp HASH      &kp DLLR      &kp PRCNT         &kp CARET     &kp N7        &kp N8        &kp N9        &kp ASTRK     &trans
+                &trans        &bhml LGUI N1 &bhml LALT N2 &bhml LCTRL N3 &bhml LSHFT N4 &kp N5           &kp N6        &bhmr LSHFT N4 &bhmr RCTRL N5 &bhmr LALT N6 &bhmr LGUI N0 &trans
+                &trans        &none         &none         &none         &none         &none             &none         &kp N1        &kp N2        &kp N3        &kp PLUS      &trans
+                                                          &trans        &trans        &trans            &kp ENTER     &kp N0        &kp DOT
+            >;
+        };
+
+        symbol {
+            bindings = <
+                &trans        &kp GRAVE     &kp TILDE     &kp LBRC      &kp RBRC      &kp PIPE          &kp AMPS      &kp LPAR      &kp RPAR      &kp UNDER     &kp PLUS      &trans
+                &trans        &bhml LGUI EXCL &bhml LALT AT &bhml LCTRL LBKT &bhml LSHFT RBKT &kp BSLH    &kp EQUAL     &bhmr LSHFT MINUS &bhmr RCTRL ASTRK &bhmr LALT FSLH &bhmr LGUI QMARK &trans
+                &trans        &kp HASH      &kp DLLR      &kp LPAR      &kp RPAR      &kp CARET         &kp LT        &kp GT        &kp COLON     &kp SEMI      &kp PRCNT     &trans
+                                                          &trans        &kp SPACE     &trans            &trans        &trans        &trans
+            >;
+        };
+
+        nav {
+            bindings = <
+                &trans        &none         &email        &none         &anime_name   &none             &kp PAGE_UP   &kp HOME      &kp UP        &kp END       &kp KP_ASTERISK &trans
+                &trans        &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHFT     &none             &kp M         &kp LEFT      &kp DOWN      &kp RIGHT     &kp PRINTSCREEN &trans
+                &trans        &none         &none         &none         &none         &none             &kp PAGE_DOWN &none         &none         &none         &none         &trans
+                                                          &trans        &trans        &trans            &trans        &trans        &trans
+            >;
+        };
+
+        settings {
+            bindings = <
+                &none         &none         &bt BT_PRV    &none         &bt BT_NXT    &bootloader       &none         &none         &none         &none         &none         &bootloader
+                &bt BT_CLR_ALL &none        &bt BT_SEL 3  &bt BT_SEL 4  &none         &out OUT_BLE      &none         &none         &none         &none         &none         &none
+                &bt BT_CLR    &none         &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &out OUT_USB      &none         &none         &none         &none         &none         &none
+                                                          &kp C_PREV    &kp C_PP      &kp C_NEXT        &none         &none         &none
+            >;
+        };
+
+        mouse {
+            bindings = <
+                &trans        &none         &none         &msc SCRL_UP  &none         &email            &msc SCRL_UP  &mkp MB1      &mmv MOVE_UP  &mkp MB2      &kp C_VOL_UP  &trans
+                &trans        &none         &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_RIGHT &none          &msc SCRL_DOWN &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &kp C_VOL_DN &trans
+                &trans        &none         &none         &none         &none         &anime_name       &mkp MB2      &msc SCRL_LEFT &mkp MB3     &msc SCRL_RIGHT &kp C_MUTE   &trans
+                                                          &kp C_PREV    &kp C_PP      &kp C_NEXT        &mkp MB1      &trans        &trans
+            >;
+        };
+
+        layer_6 {
+            bindings = <
+                &trans        &kp F12       &kp F7        &kp F8        &kp F9        &kp C_VOL_UP      &kp PLUS      &kp N7        &kp N8        &kp N9        &kp MINUS     &kp BSPC
+                &trans        &bhml LGUI F11 &bhml LALT F4 &bhml LCTRL F5 &bhml LSHFT F6 &kp C_VOL_DN   &kp KP_MULTIPLY &bhmr LSHFT N4 &bhmr LCTRL N5 &bhmr LALT N6 &bhmr LGUI FSLH &kp SEMI
+                &trans        &kp F10       &kp F1        &kp F2        &kp F3        &kp C_MUTE        &kp DOT       &kp N1        &kp N2        &kp N3        &kp COMMA     &kp EQUAL
+                                                          &trans        &trans        &trans            &trans        &trans        &kp N0
+            >;
+        };
+
+        layer_7 {
+            bindings = <
+                &kp LC(GRAVE) &kp LC(Q)     &kp LC(W)     &kp LC(F)     &kp LC(P)     &kp LC(B)         &kp LC(J)     &kp LC(L)     &kp LC(U)     &kp LC(Y)     &kp LC(SEMI)  &kp LC(BSPC)
+                &trans        &kp LC(A)     &kp LC(R)     &kp LC(S)     &kp LC(T)     &kp LC(G)         &kp LC(M)     &kp LC(N)     &kp LC(E)     &kp LC(I)     &kp LC(O)     &kp LC(SQT)
+                &kp LGUI      &kp LC(Z)     &kp LC(X)     &kp LC(C)     &kp LC(D)     &kp LC(V)         &kp LC(K)     &kp LC(H)     &kp LC(COMMA) &kp LC(DOT)   &kp LC(FSLH)  &kp LC(ENTER)
+                                                          &kp LALT      &kp LSHFT     &kp LC(SPACE)     &kp LC(ENTER) &kp LSHFT     &kp LC(DEL)
+            >;
+        };
+
+        typing {
+            bindings = <
+                &kp GRAVE     &kp Q         &kp W         &kp F         &kp P         &kp B             &kp J         &kp L         &kp U         &kp Y         &kp SEMI      &kp BSPC
+                &kp LCTRL     &kp A         &kp R         &kp S         &kp T         &kp G             &kp M         &kp N         &kp E         &kp I         &kp O         &kp C_VOL_DN
+                &kp LALT      &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH      &kp ENTER
+                                                          &kp ESC       &kp TAB       &kp SPACE         &kp ENTER     &kp LSHFT     &kp DEL
+            >;
+        };
+    };
 };
