@@ -549,7 +549,7 @@
         };
 
         typing {
-            bindings = <&tog 8>;
+            bindings = <&tog 4>;
             key-positions = <36 41>;
             layers = <0 1 2 3>;
         };
@@ -603,27 +603,18 @@
         default_layer {
             bindings = <
                 &kp GRAVE     &kp Q         &kp W         &kp F         &kp P         &kp B             &kp J         &kp L         &kp U         &kp Y         &kp SEMI      &kp BACKSPACE
-                &lt 6 TAB     &bhml LGUI A  &bhml LALT R  &bhml LCTRL S &bhml LSHFT T &kp G             &kp M         &bhmr LSHFT N &bhmr RCTRL E &bhmr LALT I  &bhmr LGUI O  &kp APOS
-                &mo 3         &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH      &kp ENTER
-                                                          &mt LALT ESC  &lt 1 TAB     &my_safe_hold_tap 1 SPACE        &lt 2 ENTER   &kp LSHFT     &lt 3 DEL
+                &lt 3 TAB     &bhml LGUI A  &bhml LALT R  &bhml LCTRL S &bhml LSHFT T &kp G             &kp M         &bhmr LSHFT N &bhmr RCTRL E &bhmr LALT I  &bhmr RGUI O  &kp APOS
+                &mo 2         &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH      &kp ENTER
+                                                          &mt LALT ESC  &lt 1 TAB     &my_safe_hold_tap 1 SPACE        &lt 1 ENTER   &kp LSHFT     &lt 2 DEL
             >;
         };
 
-        number {
+        number_symbol {
             bindings = <
                 &trans        &kp EXCL      &kp AT        &kp HASH      &kp DLLR      &kp PRCNT         &kp CARET     &kp N7        &kp N8        &kp N9        &kp ASTRK     &trans
                 &trans        &bhml LGUI N1 &bhml LALT N2 &bhml LCTRL N3 &bhml LSHFT N4 &kp N5           &kp N6        &bhmr LSHFT N4 &bhmr RCTRL N5 &bhmr LALT N6 &bhmr LGUI N0 &trans
-                &trans        &none         &none         &none         &none         &none             &none         &kp N1        &kp N2        &kp N3        &kp PLUS      &trans
+                &trans        &kp LPAR      &kp RPAR      &kp LBKT      &kp RBKT      &kp EQUAL         &kp PLUS      &kp N1        &kp N2        &kp N3        &kp MINUS     &trans
                                                           &trans        &trans        &trans            &kp ENTER     &kp N0        &kp DOT
-            >;
-        };
-
-        symbol {
-            bindings = <
-                &trans        &kp GRAVE     &kp TILDE     &kp LBRC      &kp RBRC      &kp PIPE          &kp AMPS      &kp LPAR      &kp RPAR      &kp UNDER     &kp PLUS      &trans
-                &trans        &bhml LGUI EXCL &bhml LALT AT &bhml LCTRL LBKT &bhml LSHFT RBKT &kp BSLH    &kp EQUAL     &bhmr LSHFT MINUS &bhmr RCTRL ASTRK &bhmr LALT FSLH &bhmr LGUI QMARK &trans
-                &trans        &kp HASH      &kp DLLR      &kp LPAR      &kp RPAR      &kp CARET         &kp LT        &kp GT        &kp COLON     &kp SEMI      &kp PRCNT     &trans
-                                                          &trans        &kp SPACE     &trans            &trans        &trans        &trans
             >;
         };
 
@@ -636,46 +627,19 @@
             >;
         };
 
-        settings {
+        settings_media {
             bindings = <
-                &none         &none         &bt BT_PRV    &none         &bt BT_NXT    &bootloader       &none         &none         &none         &none         &none         &bootloader
-                &bt BT_CLR_ALL &none        &bt BT_SEL 3  &bt BT_SEL 4  &none         &out OUT_BLE      &none         &none         &none         &none         &none         &none
-                &bt BT_CLR    &none         &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &out OUT_USB      &none         &none         &none         &none         &none         &none
+                &kp F12       &kp F1        &kp F2        &kp F3        &kp F4        &bootloader       &kp C_VOL_UP  &kp C_BRI_UP  &none         &none         &none         &bootloader
+                &bt BT_CLR_ALL &kp F5       &kp F6        &kp F7        &kp F8        &out OUT_BLE      &kp C_VOL_DN  &kp C_BRI_DN  &none         &none         &none         &none
+                &bt BT_CLR    &kp F9        &kp F10       &kp F11       &bt BT_NXT    &out OUT_USB      &kp C_MUTE    &none         &none         &none         &none         &none
                                                           &kp C_PREV    &kp C_PP      &kp C_NEXT        &none         &none         &none
             >;
         };
 
-        mouse {
-            bindings = <
-                &trans        &none         &none         &msc SCRL_UP  &none         &email            &msc SCRL_UP  &mkp MB1      &mmv MOVE_UP  &mkp MB2      &kp C_VOL_UP  &trans
-                &trans        &none         &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_RIGHT &none          &msc SCRL_DOWN &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &kp C_VOL_DN &trans
-                &trans        &none         &none         &none         &none         &anime_name       &mkp MB2      &msc SCRL_LEFT &mkp MB3     &msc SCRL_RIGHT &kp C_MUTE   &trans
-                                                          &kp C_PREV    &kp C_PP      &kp C_NEXT        &mkp MB1      &trans        &trans
-            >;
-        };
-
-        layer_6 {
-            bindings = <
-                &trans        &kp F12       &kp F7        &kp F8        &kp F9        &kp C_VOL_UP      &kp PLUS      &kp N7        &kp N8        &kp N9        &kp MINUS     &kp BSPC
-                &trans        &bhml LGUI F11 &bhml LALT F4 &bhml LCTRL F5 &bhml LSHFT F6 &kp C_VOL_DN   &kp KP_MULTIPLY &bhmr LSHFT N4 &bhmr LCTRL N5 &bhmr LALT N6 &bhmr LGUI FSLH &kp SEMI
-                &trans        &kp F10       &kp F1        &kp F2        &kp F3        &kp C_MUTE        &kp DOT       &kp N1        &kp N2        &kp N3        &kp COMMA     &kp EQUAL
-                                                          &trans        &trans        &trans            &trans        &trans        &kp N0
-            >;
-        };
-
-        layer_7 {
-            bindings = <
-                &kp LC(GRAVE) &kp LC(Q)     &kp LC(W)     &kp LC(F)     &kp LC(P)     &kp LC(B)         &kp LC(J)     &kp LC(L)     &kp LC(U)     &kp LC(Y)     &kp LC(SEMI)  &kp LC(BSPC)
-                &trans        &kp LC(A)     &kp LC(R)     &kp LC(S)     &kp LC(T)     &kp LC(G)         &kp LC(M)     &kp LC(N)     &kp LC(E)     &kp LC(I)     &kp LC(O)     &kp LC(SQT)
-                &kp LGUI      &kp LC(Z)     &kp LC(X)     &kp LC(C)     &kp LC(D)     &kp LC(V)         &kp LC(K)     &kp LC(H)     &kp LC(COMMA) &kp LC(DOT)   &kp LC(FSLH)  &kp LC(ENTER)
-                                                          &kp LALT      &kp LSHFT     &kp LC(SPACE)     &kp LC(ENTER) &kp LSHFT     &kp LC(DEL)
-            >;
-        };
-
-        typing {
+        simple_typing {
             bindings = <
                 &kp GRAVE     &kp Q         &kp W         &kp F         &kp P         &kp B             &kp J         &kp L         &kp U         &kp Y         &kp SEMI      &kp BSPC
-                &kp LCTRL     &kp A         &kp R         &kp S         &kp T         &kp G             &kp M         &kp N         &kp E         &kp I         &kp O         &kp C_VOL_DN
+                &kp LCTRL     &kp A         &kp R         &kp S         &kp T         &kp G             &kp M         &kp N         &kp E         &kp I         &kp O         &kp APOS
                 &kp LALT      &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH      &kp ENTER
                                                           &kp ESC       &kp TAB       &kp SPACE         &kp ENTER     &kp LSHFT     &kp DEL
             >;
